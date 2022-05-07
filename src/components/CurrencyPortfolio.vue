@@ -44,7 +44,10 @@
           </v-col>
           <v-col md="6" cols="12">
             <LoaderComponent class="loader" v-if="diagramLoading"/>
-            <DoughnutDiagram class="appearAnimation" v-else :height="300" :chart-data="chartData"/>
+            <DoughnutDiagram class="appearAnimation mb-7"
+                             v-else
+                             :height="300"
+                             :chart-data="chartData"/>
           </v-col>
         </v-row>
       </v-card-text>
