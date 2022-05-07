@@ -134,15 +134,18 @@ export default {
   animation: 0.5s show ease;
 }
 .loader {
-  height: 324px;
+  height: 352px;
 }
 .amount {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
   width: 120px;
   color: white;
   font-size: 1.3rem;
+  line-height: 1.3rem;
 }
 @keyframes show {
   from { opacity: 0; }
