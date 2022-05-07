@@ -2,7 +2,7 @@ import axios from 'axios';
 import moment from 'moment';
 
 const USD = 'USD';
-const period = 10;
+const period = 14;
 const mapCurrency = {
   BTC: 'bitcoin',
   ETH: 'ethereum',
@@ -11,7 +11,9 @@ const mapCurrency = {
 export default {
   state: {
     currencies: ['USD', 'BTC', 'ETH'],
+    // объект с курсами валют к BTC
     currenciesRates: {},
+    // дынные для графика
     exchangeRatesData: {
       labels: null,
       data: null,

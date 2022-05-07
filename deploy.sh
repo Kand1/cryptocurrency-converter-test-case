@@ -18,6 +18,6 @@ git commit -m 'deploy'
 
 
 
-git push -f https://github.com/Kand1/product-list-test-case master:gh-pages
+git push -f https://github.com/Kand1/cryptocurrency-converter-test-case master:gh-pages
 
 cd -

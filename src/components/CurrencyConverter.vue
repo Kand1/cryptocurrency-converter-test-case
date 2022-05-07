@@ -40,16 +40,11 @@
       </v-card>
       <h2 class="mt-3">Exhange rate for 14 days</h2>
       <div class="loader" v-if="graphicLoading">
-        <v-row class="mt-3" align="center">
-          <v-col align="center">
-            <h3>Wait Please</h3>
-          </v-col>
-        </v-row>
-        <v-row  align="center">
-          <v-col align="center">
-            <div class="lds-dual-ring"></div>
-          </v-col>
-        </v-row>
+        <v-card v-if="apiLimit" align="center" class="pa-8">
+          Api that i use has a limit of 50 requests per minute, and the request for 2 weeks history
+          requires 14 api requests. So wait a bit please and then refresh the page :)
+        </v-card>
+        <LoaderComponent/>
       </div>
       <v-card class="graphic mt-3" v-else>
         <v-card-text>
@@ -67,12 +62,15 @@
 <script>
 import { mapActions } from 'vuex';
 import LineGraphic from '@/components/LineGraphic.vue';
+import LoaderComponent from '@/components/LoaderComponent.vue';
 
 export default {
   components: {
     LineGraphic,
+    LoaderComponent,
   },
   data: () => ({
+    apiLimit: false,
     shouldUpdate: true,
     graphicLoading: true,
     firstCurrency: 'BTC',
@@ -110,6 +108,8 @@ export default {
               borderColor: '#DDDDDD',
             }],
           };
+        }).catch(() => {
+          this.apiLimit = true;
         });
       }
     },
@@ -154,22 +154,6 @@ export default {
 </script>
 
 <style>
-.lds-dual-ring {
-  display: inline-block;
-  width: 80px;
-  height: 80px;
-}
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #fff;
-  border-color: #fff transparent #fff transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
-}
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);

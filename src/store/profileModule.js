@@ -1,7 +1,9 @@
 export default {
   state: {
     userName: null,
+    // объект со значениями валют пользователя
     userCurrencies: null,
+    // данные для диаграммы
     userCurrenciesData: {
       labels: null,
       data: null,

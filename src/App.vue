@@ -15,30 +15,31 @@
       </v-app-bar>
     </v-container>
     <v-main>
-      <div class="loader" v-if="loadingCurrenciesRates">
-        <v-row class="mt-3" align="center">
-          <v-col align="center">
-            <h3>Wait Please</h3>
-          </v-col>
-        </v-row>
-        <v-row  align="center">
-          <v-col align="center">
-            <div class="lds-dual-ring"></div>
-          </v-col>
-        </v-row>
+      <v-container v-if="apiLimit">
+        <v-card align="center" class="pa-8">
+          Api that i use has a limit of 50 requests per minute, and the request for 2 weeks history
+          requires 14 api requests. So wait a bit please and then refresh the page :)
+          <LoaderComponent/>
+        </v-card>
+      </v-container>
+      <div v-else>
+        <LoaderComponent v-if="loadingCurrenciesRates"/>
+        <router-view v-else/>
       </div>
-      <router-view v-else/>
     </v-main>
   </v-app>
 </template>
 
 <script>
 import { mapActions } from 'vuex';
+import LoaderComponent from '@/components/LoaderComponent.vue';
 
 export default {
   name: 'App',
+  components: { LoaderComponent },
   data: () => ({
     loadingCurrenciesRates: true,
+    apiLimit: false,
   }),
   methods: {
     ...mapActions(['fetchCurrenciesRates']),
@@ -47,6 +48,8 @@ export default {
     // загрузка данных о курсах обмена
     this.fetchCurrenciesRates().then(() => {
       this.loadingCurrenciesRates = false;
+    }).catch(() => {
+      this.apiLimit = true;
     });
   },
 };

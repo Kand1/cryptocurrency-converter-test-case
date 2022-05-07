@@ -43,18 +43,7 @@
             </v-row>
           </v-col>
           <v-col md="6" cols="12">
-            <div class="loader" v-if="diagramLoading">
-              <v-row class="mt-3" align="center">
-                <v-col align="center">
-                  <h3>Wait Please</h3>
-                </v-col>
-              </v-row>
-              <v-row  align="center">
-                <v-col align="center">
-                  <div class="lds-dual-ring"></div>
-                </v-col>
-              </v-row>
-            </div>
+            <LoaderComponent class="loader" v-if="diagramLoading"/>
             <DoughnutDiagram class="appearAnimation" v-else :height="300" :chart-data="chartData"/>
           </v-col>
         </v-row>
@@ -66,10 +55,12 @@
 <script>
 import { mapMutations } from 'vuex';
 import DoughnutDiagram from '@/components/DoughnutDiagram.vue';
+import LoaderComponent from '@/components/LoaderComponent.vue';
 
 export default {
   components: {
     DoughnutDiagram,
+    LoaderComponent,
   },
   data: () => ({
     chartData: {
@@ -81,6 +72,7 @@ export default {
   }),
   methods: {
     ...mapMutations(['setUserCurrenciesData', 'setUserCurrencies', 'setUserName', 'setUserCurrency']),
+    // изменение какой либо валюты пользователя
     changeUserCurrency(e, currency, i) {
       this.diagramLoading = true;
       if (+this.currenciesChangeAmount[i]) {
@@ -139,7 +131,7 @@ export default {
   animation: 0.5s show ease;
 }
 .loader {
-  height: 288px;
+  height: 324px;
 }
 .amount {
   display: flex;
